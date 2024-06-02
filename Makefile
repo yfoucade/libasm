@@ -10,7 +10,8 @@ ASFLAGS = -f elf64 -g
 C_SRC = src/main.c
 ASM_SRC = \
 	src/ft_strlen.s \
-	src/ft_strcpy.s
+	src/ft_strcpy.s \
+	src/ft_strcmp.s \
 
 # Object files
 C_OBJ = ${C_SRC:.c=.o}
