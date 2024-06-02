@@ -1,7 +1,7 @@
 section .text
 
 ;---------------
-; HLL signature:
+; HLL prototype:
 ;  qword ft_strlen(char *s);
 ; ----
 ; Arguments:
