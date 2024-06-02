@@ -12,6 +12,8 @@ ASM_SRC = \
 	src/ft_strlen.s \
 	src/ft_strcpy.s \
 	src/ft_strcmp.s \
+	src/ft_write.s  \
+	src/ft_read.s   \
 
 # Object files
 C_OBJ = ${C_SRC:.c=.o}
@@ -31,13 +33,14 @@ ${NAME}: ${ASM_OBJ}
 	@ ar rcs src/libasm.a ${ASM_OBJ}
 
 %.o: %.c
-	@ ${CC} ${CFLAGS} -o $@ -c $< 
+	@ ${CC} ${CFLAGS} -o $@ -c $< -fPIC
 
 %.o: %.s
 	@ ${AS} ${ASFLAGS} -o $@ $<
 
 test: ${C_OBJ} ${NAME}
-	@ ${CC} ${CFLAGS} -Lsrc ${C_OBJ} -o ${EXE} -lasm -z noexecstack
+	@ # https://github.com/xoreaxeaxeax/rosenbridge/issues/1
+	@ ${CC} ${CFLAGS} -Lsrc ${C_OBJ} -o ${EXE} -lasm -z noexecstack -static
 
 clean:
 	@ rm -f ${ASM_OBJ} ${C_OBJ}
