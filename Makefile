@@ -43,7 +43,3 @@ fclean: clean
 	@ rm -f ${NAME} ${EXE}
 
 re: fclean all
-
-run:
-	docker build -t test_asm .
-	docker run -v ./:/libasm test_asm
