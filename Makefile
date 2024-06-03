@@ -7,31 +7,27 @@ CFLAGS = -Wall -Wextra -Werror -g
 ASFLAGS = -f elf64 -g
 
 # Source files
-C_SRC = src/main.c
-ASM_SRC = \
-	src/ft_strlen.s \
-	src/ft_strcpy.s \
-	src/ft_strcmp.s \
-	src/ft_write.s  \
-	src/ft_read.s   \
-	src/ft_strdup.s \
+C_SRC = main.c
+ASM_SRC = ft_strlen.s ft_strcpy.s ft_strcmp.s \
+	ft_write.s  ft_read.s ft_strdup.s
 
 # Object files
 C_OBJ = ${C_SRC:.c=.o}
 ASM_OBJ = ${ASM_SRC:.s=.o}
 
 # Names
-NAME = src/libasm.a
+NAME = libasm.a
 EXE = a.out
 
 .PHONY = all clean fclean run
 
 
-all: ${NAME}
+all: ${NAME} ${C_OBJ}
+	@ ${CC} ${CFLAGS} -L. ${C_OBJ} -o ${EXE} -lasm -z noexecstack -static
 
 ${NAME}: ${ASM_OBJ}
 	@ # ld -m elf_x86_64 -o test ${ASM_OBJ}
-	@ ar rcs src/libasm.a ${ASM_OBJ}
+	@ ar rcs ${NAME} ${ASM_OBJ}
 
 %.o: %.c
 	@ ${CC} ${CFLAGS} -o $@ -c $< -fPIC
@@ -41,7 +37,7 @@ ${NAME}: ${ASM_OBJ}
 
 test: ${C_OBJ} ${NAME}
 	@ # https://github.com/xoreaxeaxeax/rosenbridge/issues/1
-	@ ${CC} ${CFLAGS} -Lsrc ${C_OBJ} -o ${EXE} -lasm -z noexecstack -static
+	@ ${CC} ${CFLAGS} -L. ${C_OBJ} -o ${EXE} -lasm -z noexecstack -static
 
 clean:
 	@ rm -f ${ASM_OBJ} ${C_OBJ}
