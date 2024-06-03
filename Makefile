@@ -26,7 +26,6 @@ all: ${NAME} ${C_OBJ}
 	@ ${CC} ${CFLAGS} -L. ${C_OBJ} -o ${EXE} -lasm -z noexecstack -static
 
 ${NAME}: ${ASM_OBJ}
-	@ # ld -m elf_x86_64 -o test ${ASM_OBJ}
 	@ ar rcs ${NAME} ${ASM_OBJ}
 
 %.o: %.c
