@@ -14,6 +14,7 @@ ASM_SRC = \
 	src/ft_strcmp.s \
 	src/ft_write.s  \
 	src/ft_read.s   \
+	src/ft_strdup.s \
 
 # Object files
 C_OBJ = ${C_SRC:.c=.o}
